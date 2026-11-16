@@ -4,6 +4,9 @@
  * Ascend950-specific host tiling and workspace calculation for FA v3 bwd.
  */
 
+#ifndef FAG_TILING_950_CPP_H
+#define FAG_TILING_950_CPP_H
+
 #include "fag_common.h"
 #include "fag_cast_ub_plan.hpp"
 #include "fag_det_schedule_host.hpp"
@@ -458,3 +461,5 @@ int64_t GetFAGTilingParam(const FAGInfo& info, FAGTilingData& tiling)
 }
 
 } // namespace FAGTiling950
+
+#endif // FAG_TILING_950_CPP_H

@@ -202,6 +202,9 @@ struct FAGBlockInfo {
     uint32_t detFoldN2[2] = {0, 0};
     uint64_t detFoldS2Start[2] = {0, 0};
     uint32_t detFoldS2Extend[2] = {0, 0};
+
+    // MLA only: which L1 RES_KT ping-pong slot (0/1) holds this task's K.
+    uint32_t kSlot = 0;
 };
 
 // Device-kernel argument bundle. Keep it in this header together with the

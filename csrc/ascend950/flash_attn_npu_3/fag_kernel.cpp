@@ -4,6 +4,9 @@
  * Ascend950 FlashAttention v3 backward device-kernel entrypoint.
  */
 
+#ifndef FAG_KERNEL_950_CPP_H
+#define FAG_KERNEL_950_CPP_H
+
 #include "catlass/catlass.hpp"
 #include "catlass/arch/resource.hpp"
 #include "catlass/epilogue/block/block_epilogue.hpp"
@@ -26,10 +29,13 @@
 #include "kernel_operator.h"
 
 static constexpr uint32_t TASK_PINGPONG = 2;
+static constexpr uint32_t MLA_QDY_BUFFER_DEPTH = 3;  // MLA Q/dY triple-buffer
 static constexpr uint8_t CROSS_CORE_SYNC_MODE = 4;
 static constexpr uint16_t V0_V1_FLAG_ID_OFFSET = 16;
 static constexpr uint16_t SYNC_C1_TO_V1_FLAG[TASK_PINGPONG] = {0, 1};
 static constexpr uint16_t SYNC_C2_TO_V2_FLAG[TASK_PINGPONG] = {2, 3};
+static constexpr uint16_t MLA_SYNC_C1_TO_V1_FLAG[MLA_QDY_BUFFER_DEPTH] = {0, 1, 6};
+static constexpr uint16_t MLA_SYNC_C2_TO_V2_FLAG[MLA_QDY_BUFFER_DEPTH] = {2, 3, 7};
 static constexpr uint16_t SYNC_V2_TO_C34_FLAG = 4;
 static constexpr uint16_t SYNC_V1_TO_C5_FLAG = 5;
 static constexpr uint16_t SYNC_C34_TO_V2_FLAG = 8;
@@ -1735,3 +1741,5 @@ CATLASS_GLOBAL void FlashAttentionV3Bwd950(GM_ADDR dout, GM_ADDR q, GM_ADDR k, G
     FAGKernel950 fag;
     fag(params);
 }
+
+#endif // FAG_KERNEL_950_CPP_H
